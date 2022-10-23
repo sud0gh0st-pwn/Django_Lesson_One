@@ -27,6 +27,13 @@ To have an easy install on other hosts we will pipe requirments to a file
 pip freeze > requirments.txt
 ```
 
+Now make a .gitignore file and add the virtual enviroment so we dont upload this everytime.
+
+```cmd 
+touch .gitignore
+cat >> .gitignore << EOF .venv EOF
+```
+
 Now we have a simeple python enviroment with django installed so let's setup a Django site.
 
 ## Setup Django 
@@ -48,4 +55,11 @@ python manage.py runserver
 Now visit http://127.0.0.1:8000/ in your browser and you will see your project live. to stop the server use Ctrl + C in the terminal.
 
 ## Making our first app.
-I will add this after we speak to see if you want a js frontend on the site.
+I'm going to make a site for dog training so it will be called K9School
+
+```bash 
+python manage.py startapp k9School
+```
+As you can see you now have a new Dir with your sites name.
+
+This will be where we build out main site backend as for the frontend we can add a JS frontend later but for now i think to keep things simple keep it to django alone.
