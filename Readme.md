@@ -182,3 +182,6 @@ python manage.py runserver
 Now as you can see when we login to the admin CMS you can see the Classes model has loaded.
 
 ## Lesson 2 coming soon 
+- add views 
+- add css framework
+- maybe add js framework for frontend if we go for REST setup.
