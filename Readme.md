@@ -115,3 +115,68 @@ python manage.py runserver
 Now when you load http://127.0.0.1:8000/ in your browser you will notice you get an error this is because we dont have a root view yet, but as you can see in the error if you navigate to http://127.0.0.1:8000/k9school you will see the view we created.
 
 Now we have a Django project we can work on i would suggest making an superuser for the admin interface. if you look at the other available path in our error http://127.0.0.1:8000/admin you will see we have an full CMS built by django. 
+
+So when creating a super user you will be asked to enter some details like username/pass/email for now make them simple but when we migrate to production host we will make them secure
+
+```bash
+python manage.py createsuperuser
+```
+I set my user to root and pass to toor as i find this simple to remember now we need to migrate again to add the root user to the database.
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+Before we login to our admin pannel lets add our k9 app to the CMS
+
+open config/settings.py and add the K9School app to the INSTALLED_APPS
+
+```py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'K9School',
+]
+
+```
+Now run the server and lets login to the admin panel 
+
+```bash
+python manage.py runserver
+```
+Now navigate to http://127.0.0.1:8000/admin  and login using your user/pass.
+
+Now we have the admin CMS setup lets add our app to this CMS so we can make the site dynamic so open k9school/admin.py and add
+
+```py
+from django.contrib import admin
+
+from .models import Classes
+
+admin.site.register(Classes)
+
+```
+
+As you can see we are registering a model we have now made yet "Classes" in Django models are db entries so lets make a model.
+
+Open k9school/models.py and add this.
+
+```py
+class Classes(models.Model):
+    class_name = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+```
+
+Now make the migrations migrate and run the server.
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+Now as you can see when we login to the admin CMS you can see the Classes model has loaded.
