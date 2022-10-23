@@ -62,7 +62,56 @@ python manage.py startapp k9School
 ```
 As you can see you now have a new Dir with your sites name.
 
-This will be where we build out main site backend as for the frontend we can add a JS frontend later but for now i think to keep things simple keep it to django alone.
+make a new file in this Dir called urls.py these urls will linkup to the views in this dir and the urls.py in the config Dir will link to this urls.py
+
+```bash
+touch urls.py
+```
+Now we have a way to link to config urls to the k9School urls lets make a simple view to test.
+
+Open k9School/views.py
+
+```py
+from django.http import HttpResponse
 
 
-# I will stop here and call this lesson 1, Ask me on whatsapp if you have any questions and let me know when you want to continue.
+def index(request):
+    return HttpResponse("If you see this text the view is working")
+```
+
+Now open K9School/urls.py to add the view.
+
+```py
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+```
+
+as you can see we are linking our index view to our url path in urls.py now we need to link this to our core config urls.py
+
+Open config/urls.py
+
+```py
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('k9school/', include('K9School.urls')),
+    path('admin/', admin.site.urls),
+]
+```
+As you can see we have added the k9school urls.py to our main app now lets migrate and run the server to see our view.
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+Now when you load http://127.0.0.1:8000/ in your browser you will notice you get an error this is because we dont have a root view yet, but as you can see in the error if you navigate to http://127.0.0.1:8000/k9school you will see the view we created.
+
+Now we have a Django project we can work on i would suggest making an superuser for the admin interface. if you look at the other available path in our error http://127.0.0.1:8000/admin you will see we have an full CMS built by django. 
