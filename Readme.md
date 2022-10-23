@@ -63,3 +63,6 @@ python manage.py startapp k9School
 As you can see you now have a new Dir with your sites name.
 
 This will be where we build out main site backend as for the frontend we can add a JS frontend later but for now i think to keep things simple keep it to django alone.
+
+
+# I will stop here and call this lesson 1, Ask me on whatsapp if you have any questions and let me know when you want to continue.
